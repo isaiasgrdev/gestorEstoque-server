@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Product {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  nome_produto String
+  marca        String
+  tipo_produto String
+  qtd_estoque  Int
+  preco        Float // Alterado para Float para suportar valores decimais
+
+  @@map("product") // Mapeia o modelo para a coleção "product" no MongoDB
+}
